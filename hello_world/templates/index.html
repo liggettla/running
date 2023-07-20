@@ -11,19 +11,20 @@
 
 <body>
     <div class="App">
-        <header class="App-header">
-            <img src="{% static 'Octocat.png' %}" class="App-logo" alt="logo" />
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Django
-            </p>
-            <p>
-                Test Site!asf 
-            </p>
-            <p class="small">
-                Edit <code>hello_world/templates/index.html</code> and see changes live!
-                I do not want to see my changes.
-            </p>
+        <header>
         </header>
+    </div>
+    <div>
+        <!-- put a link to the admin page -->
+        <a href="/admin">Admin</a>
+        <!-- put a simple form with fields for username and password -->
+        <form action="/login" method="post">
+            {% csrf_token %}
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" />
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password" />
+            <input type="submit" value="Log in" />
     </div>
 </body>
 
