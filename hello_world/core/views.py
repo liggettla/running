@@ -9,19 +9,24 @@ def index(request):
     }
     return render(request, "index.html", context)
 
-# User registration view
 def register_request(request):
-    # If the request is a POST validate the form
-    # then save a new user object
+    # Check if the request method is POST
     if request.method == "POST":
+        # If it is POST, create a form instance and populate it with data from the request
         form = NewUserForm(request.POST)
+        # Check if the form is valid
         if form.is_valid():
+            # If the form is valid, save the data (this also saves it to the database)
             user = form.save()
+            # Log in the user
             login(request, user)
+            # Send a success message
             messages.success(request, "Registration successful." )
+            # Redirect to the index page
             return redirect("core:index")
+        # If the form is not valid, send an error message
         messages.error(request, "Unsuccessful registration. Invalid information.")
-    # If the request is a GET or the form is invalid
-    # render the template with the form
+    # If the request method is not POST (i.e., it's GET), create a new empty form
     form = NewUserForm()
-    return render (request=request, template_name="core/register.html", context={"register_form":form})
+    # Render the registration page with the form
+    return render(request=request, template_name="register.html", context={"register_form":form})

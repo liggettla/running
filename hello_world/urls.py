@@ -23,5 +23,5 @@ urlpatterns = [
     path("", core_views.index),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
-    path("register/", register_request, name="register"), # Register new users page
+    path("register/", core_views.register_request, name="register"), # Register new users page
 ]
