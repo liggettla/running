@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .core.views import register_request
+# from .core.views import register_request
 
 from hello_world.core import views as core_views
 

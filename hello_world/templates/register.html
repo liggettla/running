@@ -5,6 +5,8 @@
 </head>
 <body>
     <h2>Register</h2>
+    <!-- put a link to the registration page -->
+    <a href="/">Index</a>
     <form method="post">
         {% csrf_token %}
         {{ register_form.as_p }}
