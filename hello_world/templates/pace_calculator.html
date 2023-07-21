@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pace Calculator</title>
+</head>
+<body>
+    <h2>Pace Calculator</h2>
+    <!-- link to admin console -->
+    <a href="/">Home</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate</button>
+    </form>
+    {% if pace %}
+    <p>Your pace: {{ pace }} per kilometer</p>
+    {% endif %}
+</body>
+</html>

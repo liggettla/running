@@ -19,8 +19,9 @@ from django.urls import path, include
 from .core.views import register_request
 # Django provides a built-in view to handle login
 from django.contrib.auth.views import LoginView
-
 from hello_world.core import views as core_views
+# Import the view from pace_calculator app
+from pace_calculator.views import calculate_pace
 
 urlpatterns = [
     path("", core_views.index),
@@ -28,5 +29,5 @@ urlpatterns = [
     path("__reload__/", include("django_browser_reload.urls")),
     path("register/", core_views.register_request, name="register"), # Register new users page
     path("login/", LoginView.as_view(template_name='login.html'), name="login"), # Login page
-
+    path('pace_calculator/', calculate_pace, name='pace_calculator'), # Pace calculator page
 ]
