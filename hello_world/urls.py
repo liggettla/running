@@ -15,7 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-# from .core.views import register_request
+# Django provides a built-in view to handle registration
+from .core.views import register_request
+# Django provides a built-in view to handle login
+from django.contrib.auth.views import LoginView
 
 from hello_world.core import views as core_views
 
@@ -24,4 +27,6 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("register/", core_views.register_request, name="register"), # Register new users page
+    path("login/", LoginView.as_view(template_name='login.html'), name="login"), # Login page
+
 ]

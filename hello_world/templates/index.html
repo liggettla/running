@@ -12,28 +12,16 @@
 <body>
     <div class="App">
         <header>
-            A Header
+            Welcome
         </header>
     </div>
     <div>
-        <p>
-            And this is some text.
-        </p>
-        <p>
-            And this is some more text.
-        </p>
-        <!-- put a link to the admin page -->
+        <!-- link to admin console -->
         <a href="/admin">Admin</a>
-        <!-- put a link to the registration page -->
+        <!-- link to registration page -->
         <a href="/register">Registration</a>
-        <!-- put a simple form with fields for username and password -->
-        <form action="/login" method="post">
-            {% csrf_token %}
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" />
-            <label for="password">Password:</label>
-            <input type="password" name="password" id="password" />
-            <input type="submit" value="Log in" />
+        <!-- link to login page -->
+        <a href="/login">Login</a>
     </div>
 </body>
 
