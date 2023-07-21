@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_browser_reload",
     'pace_calculator',
+    'running_log',
 ]
 
 MIDDLEWARE = [

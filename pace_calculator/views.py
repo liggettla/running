@@ -21,3 +21,29 @@ def calculate_pace(request):
         # if a GET request, create a blank form
         form = PaceCalculatorForm()
     return render(request, 'pace_calculator.html', {'form': form})
+
+
+"""
+in the future it might be helpful to put all of the javascript from the pace calculator
+into python here so that it can be used in the pace_calculator.html template like this:
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pace Calculator</title>
+</head>
+<body>
+    <h2>Pace Calculator</h2>
+    <!-- link to admin console -->
+    <a href="/">Home</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Calculate</button>
+    </form>
+    {% if pace %}
+    <p>Your pace: {{ pace }} per kilometer</p>
+    {% endif %}
+</body>
+</html>
+"""
