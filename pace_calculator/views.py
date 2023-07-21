@@ -9,6 +9,7 @@ def calculate_pace(request):
         if form.is_valid():
             distance = form.cleaned_data['distance']
             time = form.cleaned_data['time']
+            pace = form.cleaned_data['pace']
             hours, minutes, seconds = map(int, time.split(':'))
             total_seconds = hours * 3600 + minutes * 60 + seconds
             pace_in_seconds_per_km = total_seconds / distance
