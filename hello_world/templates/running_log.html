@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Running Log</title>
+</head>
+<body>
+    <h2>Running Log</h2>
+    <!-- link to running log app -->
+    <a href="/">Home</a>
+    <!-- A form for adding a run. The 'method="post"' means that this form will send a POST request when submitted. -->
+    <form method="post">
+        <!-- This is a security feature that protects against certain types of attacks. -->
+        {% csrf_token %}
+        <!-- The form fields. 'form.as_p' means to render the form fields as paragraphs. -->
+        {{ form.as_p }}
+        <!-- The submit button for the form. -->
+        <button type="submit">Add run</button>
+    </form>
+    <h3>Your runs:</h3>
+    <!-- A list of the user's runs. -->
+    <ul>
+        <!-- Loop over each run in 'runs'. -->
+        {% for run in runs %}
+        <li>
+            <!-- Display the date, distance, and time of the run. -->
+            Date: {{ run.date }}, Distance: {{ run.distance }} km, Time: {{ run.time }}
+        </li>
+        <!-- If 'runs' is empty (i.e., the user has no runs), display 'No runs yet.' -->
+        {% empty %}
+        <li>No runs yet.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

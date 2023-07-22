@@ -22,6 +22,8 @@ from django.contrib.auth.views import LoginView
 from hello_world.core import views as core_views
 # Import the view from pace_calculator app
 from pace_calculator.views import calculate_pace
+from running_log.views import run_log  # Import the run_log view from the running_log app
+
 
 urlpatterns = [
     path("", core_views.index),
@@ -30,4 +32,5 @@ urlpatterns = [
     path("register/", core_views.register_request, name="register"), # Register new users page
     path("login/", LoginView.as_view(template_name='login.html'), name="login"), # Login page
     path('pace_calculator/', calculate_pace, name='pace_calculator'), # Pace calculator page
+    path('running_log/', run_log, name='run_log'),
 ]
