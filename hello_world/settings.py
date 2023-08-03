@@ -25,6 +25,10 @@ SECRET_KEY = "django-insecure-rc@04_mry_3-$@2sq$b9%-9jp6q2eyxf4bsw9&&esj++aw&r)p
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# for pages that have @login_required decorator
+# redirect to this page if user is not logged in
+LOGIN_URL = '/login/'
+
 ALLOWED_HOSTS = []
 
 if 'CODESPACE_NAME' in os.environ:
