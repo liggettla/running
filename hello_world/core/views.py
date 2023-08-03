@@ -23,9 +23,10 @@ def register_request(request):
             # Send a success message
             messages.success(request, "Registration successful." )
             # Redirect to the index page
-            return redirect("core:index")
+            return redirect("index")
         # If the form is not valid, send an error message
-        messages.error(request, "Unsuccessful registration. Invalid information.")
+        messages.error(request, "Unsuccessful registration. Invalid information. " + str(form.errors))
+
     # If the request method is not POST (i.e., it's GET), create a new empty form
     form = NewUserForm()
     # Render the registration page with the form
