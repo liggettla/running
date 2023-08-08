@@ -26,7 +26,7 @@ from running_log.views import run_log  # Import the run_log view from the runnin
 
 
 urlpatterns = [
-    path("", core_views.index),
+    path("", core_views.index, name="index"),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
     path("register/", core_views.register_request, name="register"), # Register new users page
