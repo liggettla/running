@@ -7,6 +7,16 @@
 <head>
     <title>{{ title }}</title>
     <link rel="stylesheet" href="{% static 'main.css' %}">
+
+    <style>
+        /* This is a basic CSS to position the username on the top right corner */
+        .username-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -16,6 +26,16 @@
         </header>
     </div>
     <div>
+
+        <h2>Homepage</h2>
+    
+        <!-- This block will check if user is authenticated and then display the username -->
+        {% if user.is_authenticated %}
+        <div class="username-display">
+            Hello, {{ user.username }}!
+        </div>
+        {% endif %}
+
         <!-- link to admin console -->
         <a href="/admin">Admin</a>
         <!-- link to registration page -->

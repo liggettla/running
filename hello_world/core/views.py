@@ -7,6 +7,7 @@ def index(request):
     context = {
         "title": "Django example",
     }
+    # passing the context includes user information
     return render(request, "index.html", context)
 
 def register_request(request):
