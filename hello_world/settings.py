@@ -29,6 +29,9 @@ DEBUG = True
 # redirect to this page if user is not logged in
 LOGIN_URL = '/login/'
 
+# Redirect to this URL after a successful login
+LOGIN_REDIRECT_URL = '/'
+
 ALLOWED_HOSTS = []
 
 if 'CODESPACE_NAME' in os.environ:
