@@ -38,8 +38,8 @@ urlpatterns = [
     path("login/", LoginView.as_view(template_name='login.html'), name="login"), # Login page
     path("logout/", LogoutView.as_view(next_page="index"), name="logout"), # Logout page
 
-    path('pace_calculator/', calculate_pace, name='pace_calculator'), # Pace calculator page
-    path('running_log/', run_log, name='run_log'),
+    path("pace_calculator/", calculate_pace, name="pace_calculator"), # Pace calculator page
+    path("running_log/", run_log, name="run_log"),
     
 
 ]
