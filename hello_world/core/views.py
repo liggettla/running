@@ -23,7 +23,7 @@ def register_request(request):
             # Send a success message
             messages.success(request, "Registration successful." )
             # Redirect to the index page
-            return redirect("login")
+            return redirect("index")
         # If the form is not valid, send an error message
         messages.error(request, "Unsuccessful registration. Invalid information. " + str(form.errors))
 
