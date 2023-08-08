@@ -17,20 +17,29 @@ from django.contrib import admin
 from django.urls import path, include
 # Django provides a built-in view to handle registration
 from .core.views import register_request
-# Django provides a built-in view to handle login
+
+# Django provides a built-in view to handle login/logout
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
+
 from hello_world.core import views as core_views
 # Import the view from pace_calculator app
 from pace_calculator.views import calculate_pace
-from running_log.views import run_log  # Import the run_log view from the running_log app
+from running_log.views import run_log  # Import the run_log view from the running_log app 
+
 
 
 urlpatterns = [
     path("", core_views.index, name="index"),
     path("admin/", admin.site.urls),
     path("__reload__/", include("django_browser_reload.urls")),
+
     path("register/", core_views.register_request, name="register"), # Register new users page
     path("login/", LoginView.as_view(template_name='login.html'), name="login"), # Login page
+    path("logout/", LogoutView.as_view(next_page="index"), name="logout"), # Logout page
+
     path('pace_calculator/', calculate_pace, name='pace_calculator'), # Pace calculator page
     path('running_log/', run_log, name='run_log'),
+    
+
 ]

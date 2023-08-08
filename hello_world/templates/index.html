@@ -33,6 +33,8 @@
         {% if user.is_authenticated %}
         <div class="username-display">
             Hello, {{ user.username }}!
+            <br>
+            <a href="{% url 'logout' %}">Logout</a>
         </div>
         {% endif %}
 
