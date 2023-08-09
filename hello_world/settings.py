@@ -49,8 +49,9 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django_browser_reload",
-    'pace_calculator',
-    'running_log',
+    "pace_calculator",
+    "running_log",
+    "biometrics",
 ]
 
 MIDDLEWARE = [

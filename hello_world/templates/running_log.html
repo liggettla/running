@@ -19,7 +19,7 @@
     <!-- This block will check if user is authenticated and then display the username -->
     {% if user.is_authenticated %}
     <div class="username-display">
-        Hello, {{ user.username }}!
+        {{ user.username }}
         <br>
         <a href="{% url 'logout' %}">Logout</a>
     </div>

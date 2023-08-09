@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Default Title{% endblock %}</title> <!-- A block for the page title, can be overridden -->
+    <!-- You can include common CSS, JS, or other assets here -->
+
+    <style>
+        /* This is a basic CSS to position the username on the top right corner */
+        .username-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+
+</head>
+<body>
+
+    <!-- Common header for all pages -->
+    <header>
+        <h1>Welcome to My Site</h1>
+        <!-- You can add a common navigation bar here, for example -->
+
+        <!-- This block will check if user is authenticated and then display the username -->
+        {% if user.is_authenticated %}
+        <div class="username-display">
+            {{ user.username }}
+            <br>
+            <a href="{% url 'logout' %}">Logout</a>
+        </div>
+        {% endif %}
+
+        <a href="/">Home</a>
+
+    </header>
+
+    <!-- Main content block; pages extending base.html will fill this block -->
+    <main>
+        {% block content %}
+        <!-- Default content goes here. This will be replaced by child templates. -->
+        {% endblock %}
+    </main>
+
+    <!-- Common footer for all pages -->
+    <footer>
+        <p>&copy; 2023 My Site</p>
+    </footer>
+
+</body>
+</html>
