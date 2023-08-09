@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html>
-    
+
 <head>
     <title>Running Log</title>
+
+    <style>
+        /* This is a basic CSS to position the username on the top right corner */
+        .username-display {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+    </style>
+    
 </head>
 <body>
+
+    <!-- This block will check if user is authenticated and then display the username -->
+    {% if user.is_authenticated %}
+    <div class="username-display">
+        Hello, {{ user.username }}!
+        <br>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    {% endif %}
+
     <h2>Running Log</h2>
     <!-- link to running log app -->
     <a href="/">Home</a>
