@@ -195,6 +195,15 @@
             <br>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
+        {% else %}
+        <!-- If the user is not authenticated, display the login link in the same location -->
+        <div class="username-display">
+            <!--
+                {% url 'login' %} generates the URL for the login page.
+                {{ request.path }} gives you the current URL path.
+                ?next={{ request.path }} appends the current path as the next parameter to the login URL. -->
+            <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+        </div>
         {% endif %}
 
         <form>
