@@ -4,7 +4,24 @@
 <h2>Add Biometrics</h2>
 <form method="post">
     {% csrf_token %}
+    <!-- form fields as paragraphs -->
     {{ form.as_p }}
     <button type="submit">Add</button>
 </form>
+<h3>Your biometrics:</h3>
+<ul>
+    {% for biometric in biometrics %}
+    <li>
+        Date: {{ biometric.date }},
+        Weight Morning: {{ biometric.weight_morning }} kg,
+        Weight After Run: {{ biometric.weight_after_run }} kg,
+        Weight Night: {{ biometric.weight_night }} kg,
+        Heart Rate: {{ biometric.heart_rate }},
+        Systolic Pressure: {{ biometric.systolic_pressure }},
+        Diastolic Pressure: {{ biometric.diastolic_pressure }},
+    </li>
+    {% empty %}
+    <li>No biometrics yet.</li>
+    {% endfor %}
+</ul>
 {% endblock %}
