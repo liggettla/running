@@ -10,7 +10,7 @@ def add_biometrics(request):
             biometric = form.save(commit=False)
             biometric.user = request.user
             biometric.save()
-            return redirect('biometrics')
+            return redirect('add_biometrics')
     else:
         form = BiometricForm()
 

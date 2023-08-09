@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 class Biometric(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
+    # blank=False means that the field is required
+    date = models.DateField(auto_now_add=False, blank=False)
 
     # Weight fields
     weight_morning = models.FloatField(null=True, blank=True)
