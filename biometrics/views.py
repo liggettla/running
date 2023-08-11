@@ -51,7 +51,9 @@ def add_biometrics(request):
 
     reg_line = [slope * date + intercept for date in dates]
 
-    p.line(dates, reg_line, line_color="red", legend_label=f"Regression (y={slope:.2f}x + {intercept:.2f})")
+    r = p.line(dates, reg_line, line_color="red", legend_label=f"Regression (y={slope:.2f}x + {intercept:.2f})")
+    # lighter colors
+    r.muted = True
     
     # Add hover tool for better user experience
     hover = HoverTool()
