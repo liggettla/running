@@ -63,14 +63,22 @@ def add_biometrics(request):
     # Create a list of events for the calendar
     events = []
     for biometric in user_biometrics:
-        events.extend([
-            {'title': f"Weight Morning: {biometric.weight_morning} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
-            {'title': f"Weight After Run: {biometric.weight_after_run} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
-            {'title': f"Weight Night: {biometric.weight_night} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
-            {'title': f"Heart Rate: {biometric.heart_rate}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
-            {'title': f"Systolic Pressure: {biometric.systolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
-            {'title': f"Diastolic Pressure: {biometric.diastolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
-        ])
+        extend_list = []
+
+        if biometric.weight_morning is not None:
+            extend_list.append({'title': f"Weight Morning: {biometric.weight_morning} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+        if biometric.weight_after_run is not None:
+            extend_list.append({'title': f"Weight After Run: {biometric.weight_after_run} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+        if biometric.weight_night is not None:
+            extend_list.append({'title': f"Weight Night: {biometric.weight_night} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+        if biometric.heart_rate is not None:
+            extend_list.append({'title': f"Heart Rate: {biometric.heart_rate}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
+        if biometric.systolic_pressure is not None:
+            extend_list.append({'title': f"Systolic Pressure: {biometric.systolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
+        if biometric.diastolic_pressure is not None:
+            extend_list.append({'title': f"Diastolic Pressure: {biometric.diastolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
+            
+        events.extend(extend_list)
 
     # Convert the events list to JSON
     events_json = json.dumps(events)
