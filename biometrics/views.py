@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import BiometricForm
 from .models import Biometric
+import json
 
 # Bokeh imports for plotting
 from bokeh.plotting import figure, show
@@ -52,13 +53,23 @@ def add_biometrics(request):
     post_run_weight_plot = create_plot("weight_after_run", "Post-Run Weight")
     night_weight_plot = create_plot("weight_night", "Night Weight")
     heart_rate_plot = create_plot("heart_rate", "Heart Rate", "Heart Rate")
-    
 
     # Embed plots into the template
     script_morning, div_morning = components(morning_weight_plot)
     script_postrun, div_postrun = components(post_run_weight_plot)
     script_night, div_night = components(night_weight_plot)
     script_hr, div_hr = components(heart_rate_plot)
+
+    # Create a list of events for the calendar
+    events = []
+    for biometric in user_biometrics:
+        events.append({
+            "title": f"Weight Morning: {biometric.weight_morning} kg, Weight After Run: {biometric.weight_after_run} kg, Weight Night: {biometric.weight_night} kg, Heart Rate: {biometric.heart_rate}, Systolic Pressure: {biometric.systolic_pressure}, Diastolic Pressure: {biometric.diastolic_pressure}",
+            "start": biometric.date.strftime('%Y-%m-%d')
+        })
+
+    # Convert the events list to JSON
+    events_json = json.dumps(events)
 
     return render(request, 'biometrics/add_biometrics.html', {
         'form': form,
@@ -67,4 +78,5 @@ def add_biometrics(request):
         'script_postrun': script_postrun, 'div_postrun': div_postrun,
         'script_night': script_night, 'div_night': div_night,
         'script_hr': script_hr, 'div_hr': div_hr,
+        'events_json': events_json, # Pass the JSON object to the template context
     })

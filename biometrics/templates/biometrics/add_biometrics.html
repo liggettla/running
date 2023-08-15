@@ -48,32 +48,21 @@
     {% endfor %}
 </ul>
 
-<-- Calendar -->
+<!-- Calendar -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById('calendar');
+
+        // Get the events JSON from the template context
+        var events = {{ events_json|safe }};
     
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            events: [
-                {% for biometric in biometrics %}
-                {
-                    title: `
-                        Weight Morning: {{ biometric.weight_morning }} kg,
-                        Weight After Run: {{ biometric.weight_after_run }} kg,
-                        Weight Night: {{ biometric.weight_night }} kg,
-                        Heart Rate: {{ biometric.heart_rate }},
-                        Systolic Pressure: {{ biometric.systolic_pressure }},
-                        Diastolic Pressure: {{ biometric.diastolic_pressure }},
-                    `,
-                    start: '{{ biometric.date }}'
-                },
-                {% endfor %}
-            ]
+            events: events
         });
     
         calendar.render();
     });
-    </script>
+</script>
     
 {% endblock %}
