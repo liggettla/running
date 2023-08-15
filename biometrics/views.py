@@ -64,18 +64,16 @@ def add_biometrics(request):
     events = []
     for biometric in user_biometrics:
         events.extend([
-            {'title': f"Weight Morning: {biometric.weight_morning} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
-            {'title': f"Weight After Run: {biometric.weight_after_run} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
-            {'title': f"Weight Night: {biometric.weight_night} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
-            {'title': f"Heart Rate: {biometric.heart_rate}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
-            {'title': f"Systolic Pressure: {biometric.systolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
-            {'title': f"Diastolic Pressure: {biometric.diastolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1e88e5'},
+            {'title': f"Weight Morning: {biometric.weight_morning} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
+            {'title': f"Weight After Run: {biometric.weight_after_run} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
+            {'title': f"Weight Night: {biometric.weight_night} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'},
+            {'title': f"Heart Rate: {biometric.heart_rate}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
+            {'title': f"Systolic Pressure: {biometric.systolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
+            {'title': f"Diastolic Pressure: {biometric.diastolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'},
         ])
 
     # Convert the events list to JSON
     events_json = json.dumps(events)
-
-
 
     return render(request, 'biometrics/add_biometrics.html', {
         'form': form,
