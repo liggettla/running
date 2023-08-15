@@ -52,6 +52,7 @@ def add_biometrics(request):
     post_run_weight_plot = create_plot("weight_after_run", "Post-Run Weight")
     night_weight_plot = create_plot("weight_night", "Night Weight")
     heart_rate_plot = create_plot("heart_rate", "Heart Rate", "Heart Rate")
+    
 
     # Embed plots into the template
     script_morning, div_morning = components(morning_weight_plot)
