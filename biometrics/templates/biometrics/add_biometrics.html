@@ -8,6 +8,9 @@
     {{ form.as_p }}
     <button type="submit">Add</button>
 </form>
+<h3>Calendar</h3>
+<div id='calendar'></div>
+
 <h3>Plots</h3>
 
 <!-- Morning Weight -->
@@ -44,4 +47,33 @@
     <li>No biometrics yet.</li>
     {% endfor %}
 </ul>
+
+<-- Calendar -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+    
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: [
+                {% for biometric in biometrics %}
+                {
+                    title: `
+                        Weight Morning: {{ biometric.weight_morning }} kg,
+                        Weight After Run: {{ biometric.weight_after_run }} kg,
+                        Weight Night: {{ biometric.weight_night }} kg,
+                        Heart Rate: {{ biometric.heart_rate }},
+                        Systolic Pressure: {{ biometric.systolic_pressure }},
+                        Diastolic Pressure: {{ biometric.diastolic_pressure }},
+                    `,
+                    start: '{{ biometric.date }}'
+                },
+                {% endfor %}
+            ]
+        });
+    
+        calendar.render();
+    });
+    </script>
+    
 {% endblock %}
