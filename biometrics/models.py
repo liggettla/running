@@ -16,5 +16,8 @@ class Biometric(models.Model):
     systolic_pressure = models.PositiveIntegerField(null=True, blank=True)  # Upper number
     diastolic_pressure = models.PositiveIntegerField(null=True, blank=True)  # Lower number
 
+    # Add this line to hint the linter about the objects attribute
+    objects = models.Manager()
+
     def __str__(self):
         return f"{self.user.username}'s biometrics on {self.date}"

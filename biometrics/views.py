@@ -1,15 +1,16 @@
+import json
+
+# Bokeh imports for plotting
+from datetime import datetime
+from bokeh.plotting import figure
+from bokeh.embed import components
+from bokeh.models import HoverTool
+from scipy.stats import linregress
+
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import BiometricForm
 from .models import Biometric
-import json
-
-# Bokeh imports for plotting
-from bokeh.plotting import figure, show
-from bokeh.embed import components
-from bokeh.models import HoverTool
-from scipy.stats import linregress
-from datetime import datetime
 
 @login_required
 def add_biometrics(request):
@@ -28,24 +29,35 @@ def add_biometrics(request):
 
     # Helper function to create plots
     def create_plot(attribute, title, biometric='Weight'):
-        filtered_biometrics = [biometric for biometric in user_biometrics if getattr(biometric, attribute)]
+        filtered_biometrics = [
+            biometric for biometric in user_biometrics if getattr(biometric, attribute)
+            ]
         weights = [getattr(biometric, attribute) for biometric in filtered_biometrics]
-        dates = [(datetime.combine(biometric.date, datetime.min.time()) - datetime(1970, 1, 1)).total_seconds() * 1000 for biometric in filtered_biometrics]
+        dates = [
+            (
+            datetime.combine(biometric.date, datetime.min.time())
+            - datetime(1970, 1, 1)
+            ).total_seconds() * 1000
+            for biometric in filtered_biometrics
+            ]
 
-        p = figure(title=title, x_axis_label="Date", y_axis_label=biometric, x_axis_type="datetime", 
+        p = figure(title=title, x_axis_label="Date", y_axis_label=biometric, x_axis_type="datetime",
                    width=800, height=400, tools="pan,box_zoom,reset,save")
         p.circle(dates, weights, size=10, color="teal", alpha=0.25, legend_label=biometric)
 
         slope, intercept, _, _, _ = linregress(dates, weights)
         reg_line = [slope * date + intercept for date in dates]
-        r = p.line(dates, reg_line, line_color="teal", legend_label=f"Regression (y={slope:.2f}x + {intercept:.2f})")
+        r = p.line(dates,
+                   reg_line,
+                   line_color="teal",
+                   legend_label=f"Regression (y={slope:.2f}x + {intercept:.2f})")
         r.muted = True
 
         hover = HoverTool()
         hover.tooltips = [("Date", "@x{%F}"), ("Weight", "@y kg")]
         hover.formatters = {"@x": "datetime"}
         p.add_tools(hover)
-        
+
         return p
 
     # Generate plots
@@ -66,18 +78,30 @@ def add_biometrics(request):
         extend_list = []
 
         if biometric.weight_morning is not None:
-            extend_list.append({'title': f"Weight Morning: {biometric.weight_morning} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+            extend_list.append({'title': f"Weight Morning: {biometric.weight_morning} kg",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#1d88e5'})
         if biometric.weight_after_run is not None:
-            extend_list.append({'title': f"Weight After Run: {biometric.weight_after_run} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+            extend_list.append({'title': f"Weight After Run: {biometric.weight_after_run} kg",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#1d88e5'})
         if biometric.weight_night is not None:
-            extend_list.append({'title': f"Weight Night: {biometric.weight_night} kg", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#1d88e5'})
+            extend_list.append({'title': f"Weight Night: {biometric.weight_night} kg",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#1d88e5'})
         if biometric.heart_rate is not None:
-            extend_list.append({'title': f"Heart Rate: {biometric.heart_rate}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
+            extend_list.append({'title': f"Heart Rate: {biometric.heart_rate}",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#e51d53'})
         if biometric.systolic_pressure is not None:
-            extend_list.append({'title': f"Systolic Pressure: {biometric.systolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
+            extend_list.append({'title': f"Systolic Pressure: {biometric.systolic_pressure}",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#e51d53'})
         if biometric.diastolic_pressure is not None:
-            extend_list.append({'title': f"Diastolic Pressure: {biometric.diastolic_pressure}", 'start': biometric.date.strftime('%Y-%m-%d'), 'color': '#e51d53'})
-            
+            extend_list.append({'title': f"Diastolic Pressure: {biometric.diastolic_pressure}",
+                                'start': biometric.date.strftime('%Y-%m-%d'),
+                                'color': '#e51d53'})
+        
         events.extend(extend_list)
 
     # Convert the events list to JSON
