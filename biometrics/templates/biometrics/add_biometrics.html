@@ -80,5 +80,28 @@ body {
         calendar.render();
     });
 </script>
+
+<-- Event handler for when calendar event is clicked -->
+<-- used to delete a calendar event -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var events = {{ events_json|safe }};
+        
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            events: events,
+            eventClick: function(info) {
+                console.log("Clicked event ID: ", info.event.id);  // Debug line
+                if (confirm("Do you want to delete this entry?")) {
+                    window.location.href = "{% url 'delete_biometric' %}?biometric_id=" + info.event.id;
+                }
+            }
+        });
+        
+        calendar.render();
+    });
+    </script>
+    
     
 {% endblock %}

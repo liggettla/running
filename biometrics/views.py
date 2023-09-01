@@ -86,27 +86,33 @@ def add_biometrics(request):
         extend_list = []
 
         if biometric.weight_morning is not None:
-            extend_list.append({'title': f"Weight Morning: {biometric.weight_morning} kg",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Weight Morning: {biometric.weight_morning} kg",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#1d88e5'})
         if biometric.weight_after_run is not None:
-            extend_list.append({'title': f"Weight After Run: {biometric.weight_after_run} kg",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Weight After Run: {biometric.weight_after_run} kg",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#1d88e5'})
         if biometric.weight_night is not None:
-            extend_list.append({'title': f"Weight Night: {biometric.weight_night} kg",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Weight Night: {biometric.weight_night} kg",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#1d88e5'})
         if biometric.heart_rate is not None:
-            extend_list.append({'title': f"Heart Rate: {biometric.heart_rate}",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Heart Rate: {biometric.heart_rate}",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#e51d53'})
         if biometric.systolic_pressure is not None:
-            extend_list.append({'title': f"Systolic Pressure: {biometric.systolic_pressure}",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Systolic Pressure: {biometric.systolic_pressure}",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#e51d53'})
         if biometric.diastolic_pressure is not None:
-            extend_list.append({'title': f"Diastolic Pressure: {biometric.diastolic_pressure}",
+            extend_list.append({'id': biometric.id,
+                                'title': f"Diastolic Pressure: {biometric.diastolic_pressure}",
                                 'start': biometric.date.strftime('%Y-%m-%d'),
                                 'color': '#e51d53'})
         
@@ -124,3 +130,15 @@ def add_biometrics(request):
         'script_hr': script_hr, 'div_hr': div_hr,
         'events_json': events_json, # Pass the JSON object to the template context
     })
+
+@login_required
+def delete_biometric(request):
+    biometric_id = request.GET.get('biometric_id')
+    if biometric_id:
+        try:
+            biometric = Biometric.objects.get(id=biometric_id, user=request.user)
+            biometric.delete()
+            messages.success(request, "Biometric entry deleted successfully!")
+        except Biometric.DoesNotExist:
+            messages.error(request, "Biometric entry not found.")
+    return redirect('add_biometrics')
