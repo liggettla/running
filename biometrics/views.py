@@ -40,6 +40,14 @@ def add_biometrics(request):
             ).total_seconds() * 1000
             for biometric in filtered_biometrics
             ]
+        
+        # don't try to run regression if there is only one data point
+        if len(dates) == 0 or len(weights) == 0:
+            # return a dummy plot
+            p = figure(title=title, x_axis_label="Date", y_axis_label=biometric, x_axis_type="datetime",
+                   width=800, height=400, tools="pan,box_zoom,reset,save")
+            p.text(x=0, y=0, text=["No data available for plotting."])
+            return p
 
         p = figure(title=title, x_axis_label="Date", y_axis_label=biometric, x_axis_type="datetime",
                    width=800, height=400, tools="pan,box_zoom,reset,save")
