@@ -12,11 +12,13 @@
             right: 10px;
         }
     </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
 </head>
 <body>
 
-    <!-- This block will check if user is authenticated and then display the username -->
+    <!-- This block will check if the user is authenticated and then display the username -->
     {% if user.is_authenticated %}
     <div class="username-display">
         {{ user.username }}
@@ -26,7 +28,7 @@
     {% endif %}
 
     <h2>Running Log</h2>
-    <!-- link to running log app -->
+    <!-- link to the running log app -->
     <a href="/">Home</a>
     <!-- A form for adding a run. The 'method="post"' means that this form will send a POST request when submitted. -->
     <form method="post">
@@ -51,5 +53,45 @@
         <li>No runs yet.</li>
         {% endfor %}
     </ul>
+
+    <!-- Example chart using Chart.js -->
+    <canvas id="myChart"></canvas>
+
+    <script>
+        // Collect all of the runs in the database
+        const run_distances = [
+            {% for run in runs %}
+                {{ run.distance|default_if_none:"null" }},
+            {% endfor %}
+        ];
+        const labels = [
+            {% for run in runs %}
+                "Label {{ forloop.counter }}",
+            {% endfor %}
+        ];
+
+        // Define the data and configuration
+        const data = {
+            labels: labels,
+            datasets: [{
+                label: 'My First Dataset',
+                data: run_distances,
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }]
+        };
+    
+        const config = {
+            type: 'line',
+            data: data,
+        };
+    
+        // Get the canvas element
+        const ctx = document.getElementById('myChart').getContext('2d');
+    
+        // Create the chart
+        new Chart(ctx, config);
+    </script>
 </body>
 </html>
