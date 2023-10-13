@@ -4,19 +4,10 @@
 
 {% block style %}
 
-    body {
-        background-color: #d4fffb;
-        font-family: 'Sofia Sans', sans-serif;
-        color: #02124f;
-        max-width: 1600px;_
-        margin: auto;
-        width: 90%;
-    }
-
 {% endblock %}
 
 {% block header %}
-    <h1>Running Log</h1>
+    <h1 class="text-center">Running Log</h1>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
@@ -27,10 +18,27 @@
         <!-- This is a security feature that protects against certain types of attacks. -->
         {% csrf_token %}
         <!-- The form fields. 'form.as_p' means to render the form fields as paragraphs. -->
-        {{ form.as_p }}
+        <!-- {{ form.as_p }} -->
+        <div class="form-group col-md-12 text-center">
+            <h2>Date</h2>
+            <input type="date" name="date" class="form-control">
+        </div>
+        <div class="form-group col-md-12 text-center">
+            <h2>Distance</h2>
+            <input type="number" name="distance" class="form-control">
+        </div>
+        <div class="form-group col-md-12 text-center">
+            <h2>Total Time</h2>
+            <input type="time" name="time" class="form-control">
+        </div>
+        <div class="form-group col-md-12 text-center">
+            <h2>Pace</h2>
+            <input type="text" name="pace" class="form-control">
+        </div>
         <!-- The submit button for the form. -->
-        <button type="submit">Add run</button>
+        <button type="submit" class='btn btn-primary btn-lg btn-block'>Add run</button>
     </form>
+
     <h3>Your runs:</h3>
     <!-- A list of the user's runs. -->
     <ul>
