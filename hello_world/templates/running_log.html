@@ -87,17 +87,31 @@
             type: 'line',
             data: data,
             options: {
-                scales: {
-                    y: { beginAtZero: true }
+                responsive: true,
+                plugins: {
+                title: {
+                    display: true,
+                    text: 'Running Log'
+                }
                 },
+                scales: {
+                y: {
+                    beginAtZero: true
+                }
+                },
+                animation: { // Enable animation
+                duration: 500, // Set the animation duration to 2 seconds
+                easing: 'easeOutQuad' // Set the easing function for the animation
+                },
+                maxHeight: 400, // Set the max height of the chart to 400 pixels
+                maxWidth: 600, // Set the max width of the chart to 600 pixels
             }
-        };
-    
-        // Get the canvas element
-        const ctx = document.getElementById('myChart').getContext('2d');
-    
-        // Create the chart
-        new Chart(ctx, config);
+            };
+
+            var myChart = new Chart(
+            document.getElementById('myChart'),
+            config
+            );
     </script>
 </body>
 </html>
