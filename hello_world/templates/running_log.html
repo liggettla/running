@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-<html>
+{% extends "base.html" %}
 
-<head>
-    <title>Running Log</title>
+{% block title %}Running Log{% endblock %}
 
-    <style>
-        /* This is a basic CSS to position the username on the top right corner */
-        .username-display {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-        }
-    </style>
+{% block style %}
 
+    body {
+        background-color: #d4fffb;
+        font-family: 'Sofia Sans', sans-serif;
+        color: #02124f;
+        max-width: 1600px;_
+        margin: auto;
+        width: 90%;
+    }
+
+{% endblock %}
+
+{% block header %}
+    <h1>Running Log</h1>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    
-</head>
-<body>
+{% endblock %}
 
-    <!-- This block will check if the user is authenticated and then display the username -->
-    {% if user.is_authenticated %}
-    <div class="username-display">
-        {{ user.username }}
-        <br>
-        <a href="{% url 'logout' %}">Logout</a>
-    </div>
-    {% endif %}
+{% block content %}
 
-    <h2>Running Log</h2>
-    <!-- link to the running log app -->
-    <a href="/">Home</a>
     <!-- A form for adding a run. The 'method="post"' means that this form will send a POST request when submitted. -->
     <form method="post">
         <!-- This is a security feature that protects against certain types of attacks. -->
@@ -103,8 +95,8 @@
                 duration: 500, // Set the animation duration to 2 seconds
                 easing: 'easeOutQuad' // Set the easing function for the animation
                 },
-                maxHeight: 400, // Set the max height of the chart to 400 pixels
-                maxWidth: 600, // Set the max width of the chart to 600 pixels
+                maxHeight: 40, // Set the max height of the chart to 400 pixels
+                maxWidth: 60, // Set the max width of the chart to 600 pixels
             }
             };
 
@@ -113,5 +105,5 @@
             config
             );
     </script>
-</body>
-</html>
+
+{% endblock %}
