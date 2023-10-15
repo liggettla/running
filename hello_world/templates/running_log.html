@@ -49,17 +49,17 @@
                 {{ run.distance|default_if_none:"null" }},
             {% endfor %}
         ];
-        const labels = [
+        const dates = [
             {% for run in runs %}
-                "Label {{ forloop.counter }}",
+                "{{ run.date|default_if_none:"null" }}",
             {% endfor %}
-        ];
+        ]
 
         // Define the data and configuration
         const data = {
-            labels: labels,
+            labels: dates,
             datasets: [{
-                label: 'My First Dataset',
+                label: 'Run Distance',
                 data: run_distances,
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
