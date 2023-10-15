@@ -29,7 +29,7 @@
         </div>
         <div class="form-group col-md-12 text-center">
             <h2>Total Time</h2>
-            <input type="time" name="time" class="form-control">
+            <input type="time" name="time" class="form-control" step="1">
         </div>
         <div class="form-group col-md-12 text-center">
             <h2>Pace</h2>
@@ -38,21 +38,6 @@
         <!-- The submit button for the form. -->
         <button type="submit" class='btn btn-primary btn-lg btn-block'>Add run</button>
     </form>
-
-    <h3>Your runs:</h3>
-    <!-- A list of the user's runs. -->
-    <ul>
-        <!-- Loop over each run in 'runs'. -->
-        {% for run in runs %}
-        <li>
-            <!-- Display the date, distance, and time of the run. -->
-            Date: {{ run.date }}, Distance: {{ run.distance }} km, Time: {{ run.time }}
-        </li>
-        <!-- If 'runs' is empty (i.e., the user has no runs), display 'No runs yet.' -->
-        {% empty %}
-        <li>No runs yet.</li>
-        {% endfor %}
-    </ul>
 
     <!-- Example chart using Chart.js -->
     <canvas id="myChart"></canvas>
@@ -113,5 +98,20 @@
             config
             );
     </script>
+
+    <h2 class="text-center">Your runs:</h3>
+    <!-- A list of the user's runs. -->
+    <ul>
+        <!-- Loop over each run in 'runs'. -->
+        {% for run in runs %}
+        <li>
+            <!-- Display the date, distance, and time of the run. -->
+            Date: {{ run.date }}, Distance: {{ run.distance }} km, Time: {{ run.time }}
+        </li>
+        <!-- If 'runs' is empty (i.e., the user has no runs), display 'No runs yet.' -->
+        {% empty %}
+        <li>No runs yet.</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}
