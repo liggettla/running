@@ -65,12 +65,15 @@
             position: fixed;
             bottom: 0;
             text-align: center;
-            width: 80%;
+            width: 100%;
             padding: 10px;
         }
 
         .navbar {
-            background-color: #7fd1d1;
+            width: 100%;
+            margin: auto;
+            background-color: #d4fffb;
+            border: none;
         }
 
         {% block style %}
@@ -101,9 +104,10 @@
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <ul class="nav navbar-nav">
-                <li><a href="/running_log">Running Log</a></li>
-                <li><a href="/pace_calculator">Pace Calculator</a></li>
-                <li><a href="{% url 'add_biometrics' %}">Biometrics</a></li><!-- i guess this preferable linking syntax -->
+                <!-- i guess this preferable linking syntax -->
+                <li><a href="{% url 'run_log' %}">Running Log</a></li>
+                <li><a href="{% url 'pace_calculator' %}">Pace Calculator</a></li>
+                <li><a href="{% url 'add_biometrics' %}">Biometrics</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
