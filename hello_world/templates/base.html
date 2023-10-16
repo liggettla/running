@@ -43,10 +43,14 @@
                 background-color: #d4fffb;
                 font-family: 'Sofia Sans', sans-serif;
                 color: #02124f;
-                max-width: 600px;
                 margin: auto;
-                width: 80%;
             }
+
+        main {
+            max-width: 600px;
+            width: 80%;
+            margin: auto;
+        }
 
         h1 {
                 font-family: 'Graduate', 'Josefin Sans', sans-serif;
@@ -70,24 +74,86 @@
         {% endblock %}
     </style>
 
+
+
+
+
+
+
+
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Ace My Pace</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse">
+            <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            {% if user.is_authenticated %}
+            <li><a href="#">{{ user.username }}</a></li>
+            <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+            </ul>
+        </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
 </head>
 <body>
 
     <!-- Common header for all pages -->
     <header>
-        {% block header %}
-        
-        {% endblock %}
-        <!-- You can add a common navigation bar here, for example -->
 
-        <!-- This block will check if user is authenticated and then display the username -->
+
+
+
+        
+
+        
+
+
+
+
+
+
+        
+
+          {% block header %}
+        
+          {% endblock %}
+          <!-- You can add a common navigation bar here, for example -->
+        
+
+
+
+
+
+
+
+        <!-- This block will check if user is authenticated and then display the username
         {% if user.is_authenticated %}
         <div class="username-display">
             {{ user.username }}
             <br>
             <a href="{% url 'logout' %}">Logout</a>
         </div>
-        {% endif %}
+        {% endif %} -->
 
         <h5 class="text-center"><a href="/">Home</a></h5>
 
