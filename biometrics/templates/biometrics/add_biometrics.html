@@ -3,18 +3,16 @@
 {% block title %}Biometrics{% endblock %}
 
 {%block style %}
-body {
-    background-color: #d4fffb;
-    font-family: 'Sofia Sans', sans-serif;
-    color: #02124f;
-    max-width: 1600px;_
-    margin: auto;
-    width: 90%;
-}
+
+{% endblock %}
+
+{% block header %}
+    <h1 class="text-center">Biometrics</h1>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
-<h2>Add Biometrics</h2>
+
 <form method="post">
     {% csrf_token %}
     <!-- form fields as paragraphs -->
