@@ -1,315 +1,278 @@
-<!DOCTYPE html>
-<html> 
+{% extends "base.html" %}
 
-    <head>
-        <meta charset='UTF-8'>
-        <title>Ace My Pace</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Just a simple pace calculator for running or other exercises.">
-	
-        <!-- Google analytics tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-HLEYM0BBMD"></script>
-        <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+{% block title %}Pace Calculator{% endblock %}
 
-        gtag('config', 'G-HLEYM0BBMD');
-        </script>
-	    
-	
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@100;300;400;500;700&family=Sofia+Sans:wght@100;400;500;700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Graduate&display=swap" rel="stylesheet">
+{% block head %}
+    <script>
+        function chooseCalc() {
+            var calc_what = document.querySelector('input[name="calculate_what"]:checked').value;
 
-		<!-- Google tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-00ZKQL2VSV">
-		</script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+            if (calc_what == 'distance') {
+                totalDistance();
 
-		  gtag('config', 'G-00ZKQL2VSV');
-		</script>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4140095596504723"
-                 crossorigin="anonymous"></script>
-
-        <style>
-
-            body {
-                background-color: #d4fffb;
-                font-family: 'Sofia Sans', sans-serif;
-                color: #02124f;
-                max-width: 600px;
-                margin: auto;
-                width: 80%;
             }
 
-            h1 {
-                font-family: 'Graduate', 'Josefin Sans', sans-serif;
-                font-weight: bold;
+            if (calc_what == 'pace') {
+                calc_pace();
             }
 
-            h2 {
-                font-weight: bold;
+            if (calc_what == 'time') {
+                totalTime();
             }
+        }
 
-            /* This is a basic CSS to position the username on the top right corner */
-            .username-display {
-                position: absolute;
-                top: 10px;
-                right: 10px;
-            }
+        function totalDistance() {
+            let pace_hr = document.getElementById('pace_hr').value;
+            let pace_min = document.getElementById('pace_min').value;
+            let pace_sec = document.getElementById('pace_sec').value;
+            let pace_units = document.getElementById('pace_units').value;
 
-            .btn-block {
-                width: 80%;
-                margin: auto;
-            }
+            let totaltime_hr = document.getElementById('totaltime_hr').value;
+            let totaltime_min = document.getElementById('totaltime_min').value;
+            let totaltime_sec = document.getElementById('totaltime_sec').value;
 
-        </style>
+            distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half':21097.5, 'full': 42195};
 
-        <script>
-            function chooseCalc() {
-                var calc_what = document.querySelector('input[name="calculate_what"]:checked').value;
+            // convert to seconds
+            pace = pace_hr * 3600 + pace_min * 60 + pace_sec * 1;
 
-                if (calc_what == 'distance') {
-                    totalDistance();
+            // convert to meters
+            pace_length = distance_meter_conversion[pace_units];
 
-                }
+            // convert to seconds
+            tot_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1;
 
-                if (calc_what == 'pace') {
-                    calc_pace();
-                }
+            document.getElementById('results').innerHTML =
+                '200m: ' + (tot_time / pace) * pace_length / 200 +
+                '<br>400m: ' + (tot_time / pace) * pace_length / 400 +
+                '<br>800m: ' + (tot_time / pace) * pace_length / 800 +
+                '<br>Miles: ' + (tot_time / pace) * pace_length / 1609.34 +
+                '<br>5kms: ' + (tot_time / pace) * pace_length / 5000 +
+                '<br>10kms: ' + (tot_time / pace) * pace_length / 10000 +
+                '<br>Half Marathons: ' + (tot_time / pace) * pace_length / 21097.5 +
+                '<br>Marathons: ' + (tot_time / pace) * pace_length / 42195 +
+                '<br>Trips around the Earth: ' + (tot_time / pace) * pace_length / (40.075 * 10 ** 6) +
+                '<br>Trips to the Moon: ' + (tot_time / pace) * pace_length / (384.4 * 10 ** 6);
+        }
 
-                if (calc_what == 'time') {
-                    totalTime();
-                }
-            }
+        function calc_pace() {
+            let distance = document.getElementById('distance').value;
+            let distance_units = document.getElementById('distance_units').value;
 
-            function totalDistance() {
-                let pace_hr = document.getElementById('pace_hr').value;
-                let pace_min = document.getElementById('pace_min').value;
-                let pace_sec = document.getElementById('pace_sec').value;
-                let pace_units = document.getElementById('pace_units').value;
+            let totaltime_hr = document.getElementById('totaltime_hr').value;
+            let totaltime_min = document.getElementById('totaltime_min').value;
+            let totaltime_sec = document.getElementById('totaltime_sec').value;
 
-                let totaltime_hr = document.getElementById('totaltime_hr').value;
-                let totaltime_min = document.getElementById('totaltime_min').value;
-                let totaltime_sec = document.getElementById('totaltime_sec').value;
+            distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half':21097.5, 'full': 42195};
 
-                distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half':21097.5, 'full': 42195};
+            // convert to meters
+            run_length = distance * distance_meter_conversion[distance_units];
+            
+            // convert to seconds
+            pace_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1; 
 
-                // convert to seconds
-                pace = pace_hr * 3600 + pace_min * 60 + pace_sec * 1;
+            // pace in s/m
+            pace = pace_time / run_length;
+            
+            document.getElementById('results').innerHTML = 
+                '200m: ' + new Date(pace * 200 * 1000).toISOString().slice(11, 19) +
+                '<br>400m: ' + new Date(pace * 400 * 1000).toISOString().slice(11, 19) +
+                '<br>800m: ' + new Date(pace * 800 * 1000).toISOString().slice(11, 19) +
+                '<br>Mile: ' + new Date(pace * 1609.34 * 1000).toISOString().slice(11, 19) +
+                '<br>5k: ' + new Date(pace * 5000 * 1000).toISOString().slice(11, 19) +
+                '<br>10k: ' + new Date(pace * 10000 * 1000).toISOString().slice(11, 19) +
+                '<br>Half Marathon: ' + new Date(pace * 21097.5 * 1000).toISOString().slice(11, 19) +
+                '<br>Marathon: ' + new Date(pace * 42195 * 1000).toISOString().slice(11, 19);
+        }
 
-                // convert to meters
-                pace_length = distance_meter_conversion[pace_units];
+        function totalTime() {
+            let distance = document.getElementById('distance').value;
+            let distance_units = document.getElementById('distance_units').value;
 
-                // convert to seconds
-                tot_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1;
+            let pace_hr = document.getElementById('pace_hr').value;
+            let pace_min = document.getElementById('pace_min').value;
+            let pace_sec = document.getElementById('pace_sec').value;
+            let pace_units = document.getElementById('pace_units').value;
 
-                document.getElementById('results').innerHTML =
-                    '200m: ' + (tot_time / pace) * pace_length / 200 +
-                    '<br>400m: ' + (tot_time / pace) * pace_length / 400 +
-                    '<br>800m: ' + (tot_time / pace) * pace_length / 800 +
-                    '<br>Miles: ' + (tot_time / pace) * pace_length / 1609.34 +
-                    '<br>5kms: ' + (tot_time / pace) * pace_length / 5000 +
-                    '<br>10kms: ' + (tot_time / pace) * pace_length / 10000 +
-                    '<br>Half Marathons: ' + (tot_time / pace) * pace_length / 21097.5 +
-                    '<br>Marathons: ' + (tot_time / pace) * pace_length / 42195 +
-                    '<br>Trips around the Earth: ' + (tot_time / pace) * pace_length / (40.075 * 10 ** 6) +
-                    '<br>Trips to the Moon: ' + (tot_time / pace) * pace_length / (384.4 * 10 ** 6);
-            }
+            distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half': 21097.5, 'full': 42195};
 
-            function calc_pace() {
-                let distance = document.getElementById('distance').value;
-                let distance_units = document.getElementById('distance_units').value;
+            // convert to meters
+            run_length = distance * distance_meter_conversion[distance_units];
 
-                let totaltime_hr = document.getElementById('totaltime_hr').value;
-                let totaltime_min = document.getElementById('totaltime_min').value;
-                let totaltime_sec = document.getElementById('totaltime_sec').value;
+            // convert to seconds
+            pace = pace_hr * 3600 + pace_min * 60 + pace_sec * 1;
 
-                distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half':21097.5, 'full': 42195};
+            // convert to meters
+            pace_length = distance_meter_conversion[pace_units]
 
-                // convert to meters
-                run_length = distance * distance_meter_conversion[distance_units];
-                
-                // convert to seconds
-                pace_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1; 
+            // calculate total time
+            total_time = pace / pace_length * run_length
+            total_time = new Date(total_time * 1000).toISOString().slice(11, 19);
 
-                // pace in s/m
-                pace = pace_time / run_length;
-                
-                document.getElementById('results').innerHTML = 
-                    '200m: ' + new Date(pace * 200 * 1000).toISOString().slice(11, 19) +
-                    '<br>400m: ' + new Date(pace * 400 * 1000).toISOString().slice(11, 19) +
-                    '<br>800m: ' + new Date(pace * 800 * 1000).toISOString().slice(11, 19) +
-                    '<br>Mile: ' + new Date(pace * 1609.34 * 1000).toISOString().slice(11, 19) +
-                    '<br>5k: ' + new Date(pace * 5000 * 1000).toISOString().slice(11, 19) +
-                    '<br>10k: ' + new Date(pace * 10000 * 1000).toISOString().slice(11, 19) +
-                    '<br>Half Marathon: ' + new Date(pace * 21097.5 * 1000).toISOString().slice(11, 19) +
-                    '<br>Marathon: ' + new Date(pace * 42195 * 1000).toISOString().slice(11, 19);
-            }
+            document.getElementById('results').innerHTML = 'Total Time: ' + total_time;
+        }
 
-            function totalTime() {
-                let distance = document.getElementById('distance').value;
-                let distance_units = document.getElementById('distance_units').value;
+    </script>
+{% endblock %}
 
-                let pace_hr = document.getElementById('pace_hr').value;
-                let pace_min = document.getElementById('pace_min').value;
-                let pace_sec = document.getElementById('pace_sec').value;
-                let pace_units = document.getElementById('pace_units').value;
+{% block style %}
+    body {
+        background-color: #d4fffb;
+        font-family: 'Sofia Sans', sans-serif;
+        color: #02124f;
+        max-width: 600px;
+        margin: auto;
+        width: 80%;
+    }
 
-                distance_meter_conversion = {'m': 1, 'km': 1000, 'mi': 1609.34, 'half': 21097.5, 'full': 42195};
+    h1 {
+        font-family: 'Graduate', 'Josefin Sans', sans-serif;
+        font-weight: bold;
+    }
 
-                // convert to meters
-                run_length = distance * distance_meter_conversion[distance_units];
+    h2 {
+        font-weight: bold;
+    }
 
-                // convert to seconds
-                pace = pace_hr * 3600 + pace_min * 60 + pace_sec * 1;
+    /* This is a basic CSS to position the username on the top right corner */
+    .username-display {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
 
-                // convert to meters
-                pace_length = distance_meter_conversion[pace_units]
+    .btn-block {
+        width: 80%;
+        margin: auto;
+    }
+{% endblock %}
 
-                // calculate total time
-                total_time = pace / pace_length * run_length
-                total_time = new Date(total_time * 1000).toISOString().slice(11, 19);
+{% block content %}
 
-                document.getElementById('results').innerHTML = 'Total Time: ' + total_time;
-            }
+    <h1 class="text-center">Pace Calculator</h1>
+    <h4 class="text-center">A clean and simple pace calculater</h4>
 
-        </script>
+    <!-- put a link to the registration page -->
+    <h5 class="text-center"><a href="/">Home</a></h5>
 
-    </head>
+    <!-- This block will check if user is authenticated and then display the username -->
+    {% if user.is_authenticated %}
+    <div class="username-display">
+        Hello, {{ user.username }}!
+        <br>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    {% else %}
+    <!-- If the user is not authenticated, display the login link in the same location -->
+    <div class="username-display">
+        <!--
+            {% url 'login' %} generates the URL for the login page.
+            {{ request.path }} gives you the current URL path.
+            ?next={{ request.path }} appends the current path as the next parameter to the login URL. -->
+        <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+    </div>
+    {% endif %}
 
-    <body>
-        <h1 class="text-center">Pace Calculator</h1>
-        <h4 class="text-center">A clean and simple pace calculater</h4>
-
-        <!-- put a link to the registration page -->
-        <h5 class="text-center"><a href="/">Home</a></h5>
-
-        <!-- This block will check if user is authenticated and then display the username -->
-        {% if user.is_authenticated %}
-        <div class="username-display">
-            Hello, {{ user.username }}!
-            <br>
-            <a href="{% url 'logout' %}">Logout</a>
+    <form>
+        <!-- ######## -->
+        <!-- Distance --> 
+        <!-- ######## -->
+        <h2 class="text-center col-md-12">Distance</h2>
+        <div class='form-group col-md-12'>
+            <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
         </div>
-        {% else %}
-        <!-- If the user is not authenticated, display the login link in the same location -->
-        <div class="username-display">
-            <!--
-                {% url 'login' %} generates the URL for the login page.
-                {{ request.path }} gives you the current URL path.
-                ?next={{ request.path }} appends the current path as the next parameter to the login URL. -->
-            <a href="{% url 'login' %}?next={{ request.path }}">Login</a>
+
+        <div class='form-group col-md-12'>
+            <label for='units'></label>
+            <select name="units" id='distance_units'>
+                <option value='mi'>Miles</option>
+                <option value='m'>Meters</option>
+                <option value='km'>Kilometers</option>
+                <option value='half'>1/2 Marathons</option>
+                <option value='full'>Marathons</option>
+            </select>
         </div>
-        {% endif %}
 
-        <form>
-            <!-- ######## -->
-            <!-- Distance --> 
-            <!-- ######## -->
-            <h2 class="text-center col-md-12">Distance</h2>
-            <div class='form-group col-md-12'>
-                <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
-            </div>
+        <!-- #### -->
+        <!-- Pace --> 
+        <!-- #### -->
+        <h2 class="text-center col-md-12">Pace</h2>
 
-            <div class='form-group col-md-12'>
-                <label for='units'></label>
-                <select name="units" id='distance_units'>
-                    <option value='mi'>Miles</option>
-                    <option value='m'>Meters</option>
-                    <option value='km'>Kilometers</option>
-                    <option value='half'>1/2 Marathons</option>
-                    <option value='full'>Marathons</option>
-                </select>
-            </div>
+        <div class='form-group col-md-4'>
+            <input id='pace_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
+        </div>
+        <div class='form-group col-md-4'>
+            <input id='pace_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
+        </div>
+        <div class='form-group col-md-4'>
+            <input id='pace_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
+        </div>
 
-            <!-- #### -->
-            <!-- Pace --> 
-            <!-- #### -->
-            <h2 class="text-center col-md-12">Pace</h2>
+        <div class='form-group col-md-6'>
+            <label for='units'></label>
+            <select name="units" id='pace_units'>
+                <option value='mi'>Per Mile</option>
+                <option value='m'>Per Meter</option>
+                <option value='km'>Per Kilometer</option>
+            </select>
+        </div>
 
-            <div class='form-group col-md-4'>
-                <input id='pace_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
-            </div>
-            <div class='form-group col-md-4'>
-                <input id='pace_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
-            </div>
-            <div class='form-group col-md-4'>
-                <input id='pace_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
-            </div>
+        <!-- ########## -->
+        <!-- Total Time --> 
+        <!-- ########## -->
+        <h2 class="text-center col-md-12">Total Time</h2>
 
-            <div class='form-group col-md-6'>
-                <label for='units'></label>
-                <select name="units" id='pace_units'>
-                    <option value='mi'>Per Mile</option>
-                    <option value='m'>Per Meter</option>
-                    <option value='km'>Per Kilometer</option>
-                </select>
-            </div>
-
-            <!-- ########## -->
-            <!-- Total Time --> 
-            <!-- ########## -->
-            <h2 class="text-center col-md-12">Total Time</h2>
-
-            <div class='form-group col-md-4'>
-                <input id='totaltime_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
-            </div>
-            <div class='form-group col-md-4'>
-                <input id='totaltime_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
-            </div>
-            <div class='form-group col-md-4'>
-                <input id='totaltime_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
-            </div>
-            <div class='col-md-12'>
-            </div>
-
-            <!-- ############# -->
-            <!-- Radio Buttons --> 
-            <!-- ############# -->
-
-            <h2 class="text-center col-md-12">Select Calculation</h2>
-            <div class='form-group col-md-4'>
-                <label>
-                    <input value='distance' name='calculate_what' type='radio' />
-                     Calculate Distance
-                </label>
-            </div>
-            <div class='form-group col-md-4'>
-                <label>
-                    <input value='pace' name='calculate_what' type='radio' />
-                     Calculate Pace
-                </label>
-            </div>
-            <div class='form-group col-md-4'>
-                <label>
-                    <input value=time id='calculate' type='radio' name='calculate_what' />
-                     Calculate Total Time
-                </label>
-            </div>
-
-            <div class='row'>
-                <div class='col-md-4'>
-                </div>
-                <div id='submit-button' class='col-md-4'>
-                    <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
-                    <button  class='btn btn-primary btn-lg btn-block' onclick='chooseCalc(); return false;'>Submit</button>
-                </div>
-                <div class='col-md-4'>
-                </div>
-            <div class='row'>
-        </form>
-
-        <h2 class="text-center col-md-12">Results</h2>
+        <div class='form-group col-md-4'>
+            <input id='totaltime_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
+        </div>
+        <div class='form-group col-md-4'>
+            <input id='totaltime_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
+        </div>
+        <div class='form-group col-md-4'>
+            <input id='totaltime_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
+        </div>
         <div class='col-md-12'>
-            <p class='text-center' id='results'></p>
         </div>
-    </body>
 
-</html>
+        <!-- ############# -->
+        <!-- Radio Buttons --> 
+        <!-- ############# -->
+
+        <h2 class="text-center col-md-12">Select Calculation</h2>
+        <div class='form-group col-md-4'>
+            <label>
+                <input value='distance' name='calculate_what' type='radio' />
+                    Calculate Distance
+            </label>
+        </div>
+        <div class='form-group col-md-4'>
+            <label>
+                <input value='pace' name='calculate_what' type='radio' />
+                    Calculate Pace
+            </label>
+        </div>
+        <div class='form-group col-md-4'>
+            <label>
+                <input value=time id='calculate' type='radio' name='calculate_what' />
+                    Calculate Total Time
+            </label>
+        </div>
+
+        <div class='row'>
+            <div class='col-md-4'>
+            </div>
+            <div id='submit-button' class='col-md-4'>
+                <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
+                <button  class='btn btn-primary btn-lg btn-block' onclick='chooseCalc(); return false;'>Submit</button>
+            </div>
+            <div class='col-md-4'>
+            </div>
+        <div class='row'>
+    </form>
+
+    <h2 class="text-center col-md-12">Results</h2>
+    <div class='col-md-12'>
+        <p class='text-center' id='results'></p>
+    </div>
+
+{% endblock %}
