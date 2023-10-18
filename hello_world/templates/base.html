@@ -44,12 +44,22 @@
                 font-family: 'Sofia Sans', sans-serif;
                 color: #02124f;
                 margin: auto;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh; /* will cover the 100% of viewport */
             }
 
         main {
             max-width: 600px;
             width: 80%;
             margin: auto;
+            flex: 1; /* will push the footer to the bottom of the page */
+        }
+
+        footer {
+            text-align: center;
+            width: 100%;
+            padding: 10px;
         }
 
         h1 {
@@ -59,14 +69,6 @@
 
         h2 {
             font-weight: bold;
-        }
-
-        footer{
-            position: fixed;
-            bottom: 0;
-            text-align: center;
-            width: 100%;
-            padding: 10px;
         }
 
         .navbar {
