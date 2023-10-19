@@ -48,12 +48,14 @@
     <script>
         // Collect all of the runs in the database
         const run_distances = [
-            {% for run in runs %}
+            // reversed is a command that just reverses the order
+            // of the array and will here put things in chron order
+            {% for run in runs reversed%}
                 {{ run.distance|default_if_none:"null" }},
             {% endfor %}
         ];
         const dates = [
-            {% for run in runs %}
+            {% for run in runs reversed%}
                 "{{ run.date|default_if_none:"null" }}",
             {% endfor %}
         ]
