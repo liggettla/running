@@ -28,8 +28,17 @@ def run_log(request):
         # Create an empty form.
         form = RunForm()
 
-    # Get all runs for the current user, ordered by date descending.
+    # Get all runs for the current user, ordered by date asscending.
     runs = Run.objects.filter(user=request.user).order_by('date')
 
+    # Create a dictionary of lists containing the run data.
+    # this is just so things can be easily accessed in running_log.html
+    run_data = {
+        'distances': [run.distance for run in runs],
+        'dates': [run.date for run in runs],
+        'times': [run.time for run in runs],
+        # Add more fields as needed.
+    }
+
     # Render the template with the form and runs.
-    return render(request, 'running_log.html', {'form': form, 'runs': runs})
+    return render(request, 'running_log.html', {'form': form, 'runs': runs, 'run_data': run_data})

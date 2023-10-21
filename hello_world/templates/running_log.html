@@ -15,7 +15,9 @@
 {% endblock %}
 
 {% block content %}
-
+    <!---------->
+    <!-- Form -->
+    <!---------->
     <!-- A form for adding a run. The 'method="post"' means that this form will send a POST request when submitted. -->
     <form method="post">
         <!-- This is a security feature that protects against certain types of attacks. -->
@@ -45,19 +47,21 @@
     <!-- Plot of distances with Chart.js -->
     <canvas id="myChart"></canvas>
 
+    <!---------->
+    <!-- Plot -->
+    <!---------->
     <script>
-        // Collect all of the runs in the database
-        const run_distances = [
-            // reversed is a command that just reverses the order
-            // of the array and will here put things in chron order
-            {% for run in runs%}
-                {{ run.distance|default_if_none:"null" }},
-            {% endfor %}
-        ];
+        const run_distances = {{ run_data.distances|default_if_none:"[]" }};
         
         const dates = [
             {% for run in runs%}
                 "{{ run.date|default_if_none:"null" }}",
+            {% endfor %}
+        ]
+
+        const times = [
+            {% for run in runs%}
+                "{{ run.time|default_if_none:"null" }}",
             {% endfor %}
         ]
 
@@ -103,8 +107,12 @@
             document.getElementById('myChart'),
             config
             );
+            
     </script>
 
+    <!------------------>
+    <!-- List of Runs -->
+    <!------------------>
     <h2 class="text-center">Your runs:</h3>
     <!-- A list of the user's runs. -->
     <ul>
