@@ -29,7 +29,7 @@ def run_log(request):
         form = RunForm()
 
     # Get all runs for the current user, ordered by date descending.
-    runs = Run.objects.filter(user=request.user).order_by('-date')
+    runs = Run.objects.filter(user=request.user).order_by('date')
 
     # Render the template with the form and runs.
     return render(request, 'running_log.html', {'form': form, 'runs': runs})
