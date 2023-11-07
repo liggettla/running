@@ -21,6 +21,11 @@
             }
         }
 
+        // scroll to the bottom of the page when the user hits submit
+        function scrollToBottom() {
+            window.scrollTo(0,document.body.scrollHeight);
+        }
+
         function totalDistance() {
             let pace_hr = document.getElementById('pace_hr').value;
             let pace_min = document.getElementById('pace_min').value;
@@ -221,7 +226,7 @@
             </div>
             <div id='submit-button' class='col-md-4'>
                 <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
-                <button  class='btn btn-primary btn-lg btn-block' onclick='chooseCalc(); return false;'>Submit</button>
+                <button  class='btn btn-primary btn-lg btn-block' onclick='chooseCalc(); scrollToBottom(); return false;'>Submit</button>
             </div>
             <div class='col-md-4'>
             </div>
