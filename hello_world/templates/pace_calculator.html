@@ -47,17 +47,36 @@
             // convert to seconds
             tot_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1;
 
+            // calculate results
+            let dist_200m = ((tot_time / pace) * pace_length / 200);
+            let dist_400m = ((tot_time / pace) * pace_length / 400);
+            let dist_800m = ((tot_time / pace) * pace_length / 800);
+            let dist_miles = ((tot_time / pace) * pace_length / 1609.34);
+            let dist_5k = ((tot_time / pace) * pace_length / 5000);
+            let dist_10k = ((tot_time / pace) * pace_length / 10000);
+            let dist_half = ((tot_time / pace) * pace_length / 21097.5);
+            let dist_marathon = ((tot_time / pace) * pace_length / 42195);
+            let dist_earth = ((tot_time / pace) * pace_length / (40.075 * 10 ** 6));
+
+            // round
+            function roundDistance(distance) {
+                if (distance < 0.01 || distance > 100) {
+                    return distance.toExponential(2);
+                } else {
+                    return distance.toFixed(2);
+                }
+            }
+
             document.getElementById('results').innerHTML =
-                '200m: ' + ((tot_time / pace) * pace_length / 200).toFixed(2) +
-                '<br>400m: ' + ((tot_time / pace) * pace_length / 400).toFixed(2) +
-                '<br>800m: ' + ((tot_time / pace) * pace_length / 800).toFixed(2) +
-                '<br>Miles: ' + ((tot_time / pace) * pace_length / 1609.34).toFixed(2) +
-                '<br>5kms: ' + ((tot_time / pace) * pace_length / 5000).toFixed(2) +
-                '<br>10kms: ' + ((tot_time / pace) * pace_length / 10000).toFixed(2) +
-                '<br>Half Marathons: ' + ((tot_time / pace) * pace_length / 21097.5).toFixed(2) +
-                '<br>Marathons: ' + ((tot_time / pace) * pace_length / 42195).toFixed(2) +
-                '<br>Trips around the Earth: ' + ((tot_time / pace) * pace_length / (40.075 * 10 ** 6)).toFixed(2) +
-                '<br>Trips to the Moon: ' + ((tot_time / pace) * pace_length / (384.4 * 10 ** 6)).toExponential(2);
+                '200m: ' + roundDistance(dist_200m) +
+                '<br>400m: ' + roundDistance(dist_400m) +
+                '<br>800m: ' + roundDistance(dist_800m) +
+                '<br>Miles: ' + roundDistance(dist_miles) +
+                '<br>5kms: ' + roundDistance(dist_5k) +
+                '<br>10kms: ' + roundDistance(dist_10k) +
+                '<br>Half Marathons: ' + roundDistance(dist_half) +
+                '<br>Marathons: ' + roundDistance(dist_marathon) +
+                '<br>Trips around the Earth: ' + roundDistance(dist_earth);
         }
 
         function calc_pace() {
