@@ -48,16 +48,16 @@
             tot_time = totaltime_hr * 3600 + totaltime_min * 60 + totaltime_sec * 1;
 
             document.getElementById('results').innerHTML =
-                '200m: ' + (tot_time / pace) * pace_length / 200 +
-                '<br>400m: ' + (tot_time / pace) * pace_length / 400 +
-                '<br>800m: ' + (tot_time / pace) * pace_length / 800 +
-                '<br>Miles: ' + (tot_time / pace) * pace_length / 1609.34 +
-                '<br>5kms: ' + (tot_time / pace) * pace_length / 5000 +
-                '<br>10kms: ' + (tot_time / pace) * pace_length / 10000 +
-                '<br>Half Marathons: ' + (tot_time / pace) * pace_length / 21097.5 +
-                '<br>Marathons: ' + (tot_time / pace) * pace_length / 42195 +
-                '<br>Trips around the Earth: ' + (tot_time / pace) * pace_length / (40.075 * 10 ** 6) +
-                '<br>Trips to the Moon: ' + (tot_time / pace) * pace_length / (384.4 * 10 ** 6);
+                '200m: ' + ((tot_time / pace) * pace_length / 200).toFixed(2) +
+                '<br>400m: ' + ((tot_time / pace) * pace_length / 400).toFixed(2) +
+                '<br>800m: ' + ((tot_time / pace) * pace_length / 800).toFixed(2) +
+                '<br>Miles: ' + ((tot_time / pace) * pace_length / 1609.34).toFixed(2) +
+                '<br>5kms: ' + ((tot_time / pace) * pace_length / 5000).toFixed(2) +
+                '<br>10kms: ' + ((tot_time / pace) * pace_length / 10000).toFixed(2) +
+                '<br>Half Marathons: ' + ((tot_time / pace) * pace_length / 21097.5).toFixed(2) +
+                '<br>Marathons: ' + ((tot_time / pace) * pace_length / 42195).toFixed(2) +
+                '<br>Trips around the Earth: ' + ((tot_time / pace) * pace_length / (40.075 * 10 ** 6)).toFixed(2) +
+                '<br>Trips to the Moon: ' + ((tot_time / pace) * pace_length / (384.4 * 10 ** 6)).toExponential(2);
         }
 
         function calc_pace() {
