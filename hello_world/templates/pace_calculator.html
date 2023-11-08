@@ -9,7 +9,6 @@
 
             if (calc_what == 'distance') {
                 totalDistance();
-
             }
 
             if (calc_what == 'pace') {
@@ -147,6 +146,7 @@
     }
 
     #results {
+        display: none; /* begin with results section hidden */
         background-color: #ffffff; /* light gray */
         border-radius: 5px; /* round out the corners */
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3); /* give it a 3D effect */
@@ -155,12 +155,16 @@
         border: 1px solid #ccc; /* gray border */
         padding: 20px;
     }
+
+    #hidden-results {
+        display: none; /* begin with results secion hidden */
+    }
+
     
 {% endblock %}
 
 {% block header %}
     <h1 class="text-center">Pace Calculator</h1>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -255,14 +259,21 @@
             </div>
             <div id='submit-button' class='col-md-4'>
                 <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
-                <button  class='btn btn-primary btn-lg btn-block' onclick='chooseCalc(); scrollToBottom(); return false;'>Submit</button>
+                <button  class='btn btn-primary btn-lg btn-block'
+                onclick='
+                    chooseCalc();
+                    document.getElementById("results").style.display = "block";
+                    document.getElementById("hidden-results").style.display = "block";
+                    scrollToBottom();
+                    return false;
+                '>Submit</button>
             </div>
             <div class='col-md-4'>
             </div>
         <div class='row'>
     </form>
 
-    <h2 class="text-center col-md-12">Results</h2>
+    <h2 class="text-center col-md-12" id="hidden-results">Results</h2>
     <div class='col-md-12'>
         <p class='text-center' id='results'></p>
     </div>
