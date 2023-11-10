@@ -160,6 +160,12 @@
         display: none; /* begin with results secion hidden */
     }
 
+    #submit-button {
+        margin: auto;
+        width: 50%
+    }
+
+
     
 {% endblock %}
 
@@ -174,11 +180,11 @@
         <!-- Distance --> 
         <!-- ######## -->
         <h2 class="text-center col-md-12">Distance</h2>
-        <div class='form-group col-md-12'>
+        <div class='mb-3'> <!-- margin bottom default 3-->
             <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
         </div>
 
-        <div class='form-group col-md-12'>
+        <div class='mb-3'>
             <label for='units'></label>
             <select name="units" id='distance_units'>
                 <option value='mi'>Miles</option>
@@ -194,17 +200,17 @@
         <!-- #### -->
         <h2 class="text-center col-md-12">Pace</h2>
 
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='pace_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
         </div>
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='pace_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
         </div>
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='pace_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
         </div>
 
-        <div class='form-group col-md-6'>
+        <div class='mb-3'>
             <label for='units'></label>
             <select name="units" id='pace_units'>
                 <option value='mi'>Per Mile</option>
@@ -218,16 +224,14 @@
         <!-- ########## -->
         <h2 class="text-center col-md-12">Total Time</h2>
 
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='totaltime_hr' type='number' class='form-control' step='any' min='0' placeholder='Hr'>
         </div>
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='totaltime_min' type='number' class='form-control' step='any' min='0' max='59' placeholder='Min'>
         </div>
-        <div class='form-group col-md-4'>
+        <div class='mb-3'>
             <input id='totaltime_sec' type='number' class='form-control' step='any' min='0' max='59' placeholder='Sec'>
-        </div>
-        <div class='col-md-12'>
         </div>
 
         <!-- ############# -->
@@ -254,23 +258,17 @@
             </label>
         </div>
 
-        <div class='row'>
-            <div class='col-md-4'>
-            </div>
-            <div id='submit-button' class='col-md-4'>
-                <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
-                <button  class='btn btn-primary btn-lg btn-block'
-                onclick='
-                    chooseCalc();
-                    document.getElementById("results").style.display = "block";
-                    document.getElementById("hidden-results").style.display = "block";
-                    scrollToBottom();
-                    return false;
-                '>Submit</button>
-            </div>
-            <div class='col-md-4'>
-            </div>
-        <div class='row'>
+        <div id='submit-button' class='d-flex'>
+            <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
+            <button  class='btn btn-primary btn-lg btn-block'
+            onclick='
+                chooseCalc();
+                document.getElementById("results").style.display = "block";
+                document.getElementById("hidden-results").style.display = "block";
+                scrollToBottom();
+                return false;
+            '>Submit</button>
+        </div>
     </form>
 
     <h2 class="text-center col-md-12" id="hidden-results">Results</h2>
