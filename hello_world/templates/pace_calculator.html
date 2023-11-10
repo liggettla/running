@@ -157,7 +157,7 @@
     }
 
     #hidden-results {
-        display: none; /* begin with results secion hidden */
+        display: none; /* begin with results section hidden */
     }
 
     #submit-button {
@@ -165,7 +165,11 @@
         width: 50%
     }
 
-
+    #radio-group {
+        /* dispaly: inline-block; */ /* this is better but not working */
+        width:157px;
+        margin: auto;
+    }
     
 {% endblock %}
 
@@ -239,23 +243,13 @@
         <!-- ############# -->
 
         <h2 class="text-center col-md-12">Select Calculation</h2>
-        <div class='form-group col-md-4 text-center'>
-            <label>
-                <input value='distance' name='calculate_what' type='radio' />
-                    Calculate Distance
-            </label>
-        </div>
-        <div class='form-group col-md-4 text-center'>
-            <label>
-                <input value='pace' name='calculate_what' type='radio' />
-                    Calculate Pace
-            </label>
-        </div>
-        <div class='form-group col-md-4 text-center'>
-            <label>
-                <input value=time id='calculate' type='radio' name='calculate_what' />
-                    Calculate Total Time
-            </label>
+        <div id="radio-group" class="form-group">
+            <input id='adistance' value='distance' name='calculate_what' type='radio' />
+            <label for="adistance">Calculate Distance</label><br>
+            <input id='pace' value='pace' name='calculate_what' type='radio' />
+            <label for="pace">Calculate Pace</label><br>
+            <input id='time' value='time' name='calculate_what' type='radio' />
+            <label for="time">Calculate Total Time</label><br>
         </div>
 
         <div id='submit-button' class='d-flex'>
