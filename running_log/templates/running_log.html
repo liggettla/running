@@ -24,24 +24,30 @@
         {% csrf_token %}
         <!-- The form fields. 'form.as_p' means to render the form fields as paragraphs. -->
         <!-- {{ form.as_p }} -->
-        <div class="form-group col-md-12 text-center">
+        <div class="form-group col-md-12 text-center mb-3">
             <h2>Date</h2>
             <input type="date" name="date" class="form-control">
         </div>
-        <div class="form-group col-md-12 text-center">
+        <div class="form-group col-md-12 text-center mb-3">
             <h2>Distance</h2>
             <input type="number" name="distance" class="form-control">
         </div>
-        <div class="form-group col-md-12 text-center">
+        <div class="form-group col-md-12 text-center mb-3">
             <h2>Total Time</h2>
             <input type="time" name="time" class="form-control" step="1">
         </div>
-        <div class="form-group col-md-12 text-center">
+        <div class="form-group col-md-12 text-center mb-3">
             <h2>Pace</h2>
             <input type="text" name="pace" class="form-control">
         </div>
         <!-- The submit button for the form. -->
-        <button type="submit" class='btn btn-primary btn-lg btn-block'>Add run</button>
+        <div id='submit-button' class='d-flex mb-3'>
+            <button type="submit" class='btn btn-primary btn-lg btn-block'>Add run</button>
+        </div>
+
+        </div>
+
+
     </form>
 
     <!-- Plot of distances with Chart.js -->
