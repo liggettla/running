@@ -73,7 +73,7 @@ TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
         "DIRS": [BASE_DIR / "hello_world" / "templates"],
-        "APP_DIRS": True,
+        "APP_DIRS": True, # look for templates within each app folder
         "OPTIONS": {
             "context_processors": [
                 "django.template.context_processors.debug",
@@ -137,7 +137,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "hello_world" / "static",
 ]
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

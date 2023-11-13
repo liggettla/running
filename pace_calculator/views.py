@@ -16,7 +16,12 @@ def calculate_pace(request):
             pace_minutes = pace_in_seconds_per_km // 60
             pace_seconds = pace_in_seconds_per_km % 60
             pace = f'{int(pace_minutes)}:{int(pace_seconds):02d}'
-            return render(request, 'pace_calculator.html', {'form': form, 'pace': pace})
+
+            # render pace_calculator.html from hello_world/templates
+            # return render(request, 'pace_calculator.html', {'form': form, 'pace': pace})
+
+            # render pace_calculator.html from pace_calculator/templates/pace_calculator
+            return render(request, 'pace_calculator/pace_calculator.html', {'form': form, 'pace': pace})
     else:
         # if a GET request, create a blank form
         form = PaceCalculatorForm()
