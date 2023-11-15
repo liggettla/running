@@ -50,71 +50,80 @@
 
     </form>
 
-    <!-- Plot of distances with Chart.js -->
-    <canvas id="myChart"></canvas>
+    <div id="distanceChart">
+        <!-- Plot of distances with Chart.js -->
+        <canvas id="myChart"></canvas>
 
-    <!---------->
-    <!-- Plot -->
-    <!---------->
-    <script>
-        const run_distances = {{ run_data.distances|default_if_none:"[]" }};
-        
-        const dates = [
-            {% for run in runs%}
-                "{{ run.date|default_if_none:"null" }}",
-            {% endfor %}
-        ]
-
-        const times = [
-            {% for run in runs%}
-                "{{ run.time|default_if_none:"null" }}",
-            {% endfor %}
-        ]
-
-        // Define the data and configuration
-        const data = {
-            labels: dates,
-            datasets: [{
-                label: 'Run Distance',
-                data: run_distances,
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                tension: 0.1,
-                backgroundColor: 'rgb(75, 192, 192)',
-            }]
-        };
-    
-        const config = {
-            type: 'line',
-            data: data,
-            options: {
-                responsive: true,
-                plugins: {
-                title: {
-                    display: true,
-                    text: 'Running Log'
-                }
-                },
-                scales: {
-                y: {
-                    beginAtZero: true
-                }
-                },
-                animation: { // Enable animation
-                duration: 500, // Set the animation duration to 2 seconds
-                easing: 'easeOutQuad' // Set the easing function for the animation
-                },
-                maxHeight: 40, // Set the max height of the chart to 400 pixels
-                maxWidth: 60, // Set the max width of the chart to 600 pixels
-            }
-            };
-
-            var myChart = new Chart(
-            document.getElementById('myChart'),
-            config
-            );
+        <!---------->
+        <!-- Plot -->
+        <!---------->
+        <script>
+            const run_distances = {{ run_data.distances|default_if_none:"[]" }};
             
-    </script>
+            const dates = [
+                {% for run in runs%}
+                    "{{ run.date|default_if_none:"null" }}",
+                {% endfor %}
+            ]
+
+            const times = [
+                {% for run in runs%}
+                    "{{ run.time|default_if_none:"null" }}",
+                {% endfor %}
+            ]
+
+            // Define the data and configuration
+            const data = {
+                labels: dates,
+                datasets: [{
+                    label: 'Run Distance',
+                    data: run_distances,
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1,
+                    backgroundColor: 'rgb(75, 192, 192)',
+                }]
+            };
+        
+            const config = {
+                type: 'line',
+                data: data,
+                options: {
+                    responsive: true,
+                    plugins: {
+                    title: {
+                        display: true,
+                        text: 'Running Log'
+                    }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        },
+                        x: {
+                            ticks: {
+                                autoSkip: true, // skip some labels to avoid overlap
+                                maxRotation: 45,
+                                minRotation: 45
+                            }
+                        }
+                    },
+                    animation: { // Enable animation
+                    duration: 500, // Set the animation duration to 2 seconds
+                    easing: 'easeOutQuad' // Set the easing function for the animation
+                    },
+                    maxHeight: 40, // Set the max height of the chart to 400 pixels
+                    maxWidth: 60, // Set the max width of the chart to 600 pixels
+                }
+                };
+
+                var myChart = new Chart(
+                document.getElementById('myChart'),
+                config
+                );
+                
+        </script>
+    <div></div>
 
     <!------------------>
     <!-- List of Runs -->
