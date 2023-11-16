@@ -7,6 +7,14 @@
         width: 40%;
         margin: auto;
     }
+
+    #distanceChart {
+        width: 90%; /* Adjust the width of the container */
+        max-width: 600px; /* Set a maximum width if needed */
+        /* height: 400px; /* Adjust the height of the container */
+        margin: auto;
+    }
+
 {% endblock %}
 
 {% block header %}
@@ -50,6 +58,42 @@
 
     </form>
 
+
+
+
+    <div>
+        <canvas id="blaaa"></canvas>
+      </div>
+      
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      
+      <script>
+        const ctx = document.getElementById('blaaa');
+      
+        new Chart(ctx, {
+          type: 'bar',
+          data: {
+            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            datasets: [{
+              label: '# of Votes',
+              data: [12, 19, 3, 5, 2, 3],
+              borderWidth: 1
+            }]
+          },
+          options: {
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+
+
+
+
+
     <div id="distanceChart">
         <!-- Plot of distances with Chart.js -->
         <canvas id="myChart"></canvas>
@@ -91,10 +135,18 @@
                 options: {
                     responsive: true,
                     plugins: {
-                    title: {
-                        display: true,
-                        text: 'Running Log'
-                    }
+                        title: {
+                            display: true,
+                            text: 'Running Log'
+                        }
+                    },
+                    layout: {
+                        padding: {
+                            left: 50,
+                            right: 50,
+                            top: 50,
+                            bottom: 50,
+                        }
                     },
                     scales: {
                         y: {
@@ -104,7 +156,10 @@
                             ticks: {
                                 autoSkip: true, // skip some labels to avoid overlap
                                 maxRotation: 45,
-                                minRotation: 45
+                                minRotation: 45,
+                                font: {
+                                    size: 12, // Adjust the font size
+                                }
                             }
                         }
                     },
@@ -112,10 +167,8 @@
                     duration: 500, // Set the animation duration to 2 seconds
                     easing: 'easeOutQuad' // Set the easing function for the animation
                     },
-                    maxHeight: 40, // Set the max height of the chart to 400 pixels
-                    maxWidth: 60, // Set the max width of the chart to 600 pixels
                 }
-                };
+            };
 
                 var myChart = new Chart(
                 document.getElementById('myChart'),
