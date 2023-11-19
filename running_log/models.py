@@ -16,6 +16,9 @@ class Run(models.Model):
     # The total time of the run, in hh:mm:ss format.
     time = models.DurationField()
 
+    # The total time of the run, in hh:mm:ss format.
+    total_time = models.CharField(max_length=20)
+
     pace = models.FloatField()  # Average pace (minutes per kilometer)
 
     # The __str__ method determines how the model will display in the Django admin and elsewhere

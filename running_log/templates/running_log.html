@@ -49,6 +49,12 @@
             <input type="text" name="pace" class="form-control">
         </div>
 
+
+        <div class="form-group col-md-12 text-center mb-3">
+            <h2>Total Time (hr:min:sec)</h2>
+            <input type="text" name="total_time" class="form-control" placeholder="e.g., 1:30:15">
+        </div>
+
         <!-- The submit button for the form. -->
         <div id='submit-button' class='d-flex mb-3'>
             <button type="submit" class='btn btn-primary btn-lg btn-block'>Add run</button>
@@ -187,7 +193,7 @@
         {% for run in runs %}
         <li>
             <!-- Display the date, distance, and time of the run. -->
-            Date: {{ run.date }}, Distance: {{ run.distance }} km, Time: {{ run.time }}
+            Date: {{ run.date }}, Distance: {{ run.distance }} km, Time: {{ run.time }}, Total Time: {{ run.total_time}}
         </li>
         <!-- If 'runs' is empty (i.e., the user has no runs), display 'No runs yet.' -->
         {% empty %}

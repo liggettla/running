@@ -37,6 +37,7 @@ def run_log(request):
         'distances': [run.distance for run in runs],
         'dates': [run.date for run in runs],
         'times': [run.time for run in runs],
+        'total_times': [run.total_time for run in runs],
         # Add more fields as needed.
     }
 
