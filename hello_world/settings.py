@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     "pace_calculator",
     "running_log",
     "biometrics",
+    "VDOT",
 ]
 
 MIDDLEWARE = [
