@@ -3,4 +3,4 @@ from django.http import HttpResponse
 
 # Create your views here.
 def test(request):
-    return HttpResponse("This is a test page.   ")
+    return HttpResponse("This is a test page.")
