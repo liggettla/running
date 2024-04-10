@@ -42,5 +42,5 @@ urlpatterns = [
     path("running_log/", run_log, name="run_log"),
     #path("biometrics/", include("biometrics.urls")),  # Include the biometrics app URLs here
     path('', include('biometrics.urls')),
-    path('VDOT/', include('VDOT.urls')),
+    path('', include('VDOT.urls')),
 ]
