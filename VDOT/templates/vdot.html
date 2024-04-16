@@ -13,6 +13,23 @@
 
 {% block content %}
     <form>
+        <!-- ######## -->
+        <!-- Calculate VDOT --> 
+        <!-- ######## -->
+        <h2 class="text-center col-md-12">Distance</h2>
+        <div class='mb-3'> <!-- margin bottom default 3-->
+            <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
+        </div>
 
+        <div class='mb-3'>
+            <label for='units'></label>
+            <select name="units" id='distance_units'>
+                <option value='mi'>Miles</option>
+                <option value='m'>Meters</option>
+                <option value='km'>Kilometers</option>
+                <option value='half'>1/2 Marathons</option>
+                <option value='full'>Marathons</option>
+            </select>
+        </div>
     </form>
 {% endblock %}
