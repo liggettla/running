@@ -16,6 +16,8 @@
         <!-- ######## -->
         <!-- Calculate VDOT --> 
         <!-- ######## -->
+        <h2 class="text-center col-md-12">Calculate VDOT</h2>
+
         <h2 class="text-center col-md-12">Distance</h2>
         <div class='mb-3'> <!-- margin bottom default 3-->
             <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
@@ -44,12 +46,40 @@
         </div>
 
         <h2 class="text-center col-md-12">VDOT</h2>
+
+    </form>
+
+    <!-- add a horizontal divider -->
+    <hr>
+    <form>
+        <!-- ######## -->
+        <!-- Calculate VDOT --> 
+        <!-- ######## -->
+        <h2 class="text-center col-md-12">Predict Pace</h2>
+
+        <h2 class="text-center col-md-12">VDOT</h2>
         <div class="mb-3">
             <input id="vdot" type="number" class='form-control' step='any' min='0' placeholder='VDOT'>
         </div>
-        
-        
 
+
+        <h2 class="text-center col-md-12">Distance</h2>
+        <div class='mb-3'> <!-- margin bottom default 3-->
+            <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
+        </div>
+
+        <div class='mb-3'>
+            <label for='units'></label>
+            <select name="units" id='distance_units'>
+                <option value='mi'>Miles</option>
+                <option value='m'>Meters</option>
+                <option value='km'>Kilometers</option>
+                <option value='half'>1/2 Marathons</option>
+                <option value='full'>Marathons</option>
+            </select>
+        </div>
+
+        <h2 class="text-center col-md-12">Pace</h2>
 
     </form>
 {% endblock %}
