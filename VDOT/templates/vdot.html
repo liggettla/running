@@ -4,6 +4,17 @@
 {% block title %}VDOT{% endblock %}
 
 {% block head %}
+<script>
+    // use vdot to predict ideal pace over a given distance
+    function predict_pace(){
+        let vdot_predict = document.getElementById('vdot_predict').value;
+        let distance_predict = document.getElementById('distance_predict').value;
+
+        document.getElementById('results').innerHTML = vdot_predict
+
+    }
+
+</script>
 {% endblock %}
 
 {% block header %}
@@ -59,13 +70,13 @@
 
         <h2 class="text-center col-md-12">VDOT</h2>
         <div class="mb-3">
-            <input id="vdot" type="number" class='form-control' step='any' min='0' placeholder='VDOT'>
+            <input id="vdot_predict" type="number" class='form-control' step='any' min='0' placeholder='VDOT'>
         </div>
 
 
         <h2 class="text-center col-md-12">Distance</h2>
         <div class='mb-3'> <!-- margin bottom default 3-->
-            <input id='distance' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
+            <input id='distance_predict' type='number' class='form-control' step='any' min='0' placeholder='Distance'>
         </div>
 
         <div class='mb-3'>
@@ -81,5 +92,22 @@
 
         <h2 class="text-center col-md-12">Pace</h2>
 
+        <div id='submit-button' class='d-flex mb-3'>
+            <!-- return false with the method call allows enter key to toggle the button but not refresh the page -->
+            <button  class='btn btn-primary btn-lg btn-block'
+            onclick='
+                predict_pace();
+                document.getElementById("results").style.display = "block";
+                document.getElementById("hidden-results").style.display = "block";
+                scrollToBottom();
+                return false;
+            '>Submit</button>
+        </div>
+
     </form>
+
+    <h2 class="text-center col-md-12" id="hidden-results">Results</h2>
+    <div class='col-md-12'>
+        <p class='text-center' id='results'></p>
+    </div>
 {% endblock %}
